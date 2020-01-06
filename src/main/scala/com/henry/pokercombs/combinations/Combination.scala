@@ -11,6 +11,7 @@ trait Combination {
 object Combination {
   def bestFrom(setOfCards: SetOfCards): Option[Combination] = {
     List[SetOfCards => Option[Combination]](
+      StraightFlush.bestFrom,
       FourOfAKind.bestFrom,
       FullHouse.bestFrom,
       Flush.bestFrom,
@@ -32,6 +33,7 @@ object CombinationOrderInstances {
   import com.henry.pokercombs.combinations.FlushOrderInstances._
   import com.henry.pokercombs.combinations.FullHouseOrderInstances._
   import com.henry.pokercombs.combinations.FourOfAKindOrderInstances._
+  import com.henry.pokercombs.combinations.StraightFlushOrderInstances._
 
   implicit val combinationOrder: Order[Combination] = (lc: Combination, rc: Combination) => (lc, rc) match {
     case (lh: HighCard, rh: HighCard) => Order[HighCard].compare(lh, rh)
@@ -42,6 +44,7 @@ object CombinationOrderInstances {
     case (lf: Flush, rf: Flush) => Order[Flush].compare(lf, rf)
     case (lf: FullHouse, rf: FullHouse) => Order[FullHouse].compare(lf, rf)
     case (lf: FourOfAKind, rf: FourOfAKind) => Order[FourOfAKind].compare(lf, rf)
+    case (ls: StraightFlush, rs: StraightFlush) => Order[StraightFlush].compare(ls, rs)
     case _ => lc.weight - rc.weight
   }
 }
@@ -55,6 +58,7 @@ object CombinationShowInstances {
   import com.henry.pokercombs.combinations.FlushShowInstances._
   import com.henry.pokercombs.combinations.FullHouseShowInstances._
   import com.henry.pokercombs.combinations.FourOfAKindShowInstances._
+  import com.henry.pokercombs.combinations.StraightFlushShowInstances._
 
   implicit def combinationShow(implicit rs: Show[Rank], ss: Show[Suit], cs: Show[Card]): Show[Combination] = {
     case h: HighCard => Show[HighCard].show(h)
@@ -65,5 +69,6 @@ object CombinationShowInstances {
     case f: Flush => Show[Flush].show(f)
     case f: FullHouse => Show[FullHouse].show(f)
     case f: FourOfAKind => Show[FourOfAKind].show(f)
+    case s: StraightFlush => Show[StraightFlush].show(s)
   }
 }

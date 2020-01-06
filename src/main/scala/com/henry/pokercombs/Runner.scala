@@ -43,25 +43,32 @@ object Runner {
       Four of Spades,
       Ten of Clubs
     )
+    val hand7 = Set(
+      Jack of Hearts,
+      Queen of Hearts
+    )
     val comb1 = Combination.bestFrom(SetOfCards(board ++ hand1)).get
     val comb2 = Combination.bestFrom(SetOfCards(board ++ hand2)).get
     val comb3 = Combination.bestFrom(SetOfCards(board ++ hand3)).get
     val comb4 = Combination.bestFrom(SetOfCards(board ++ hand4)).get
     val comb5 = Combination.bestFrom(SetOfCards(board ++ hand5)).get
     val comb6 = Combination.bestFrom(SetOfCards(board ++ hand6)).get
+    val comb7 = Combination.bestFrom(SetOfCards(board ++ hand7)).get
     println(show"Player 1 combination: ${comb1}")
     println(show"Player 2 combination: ${comb2}")
     println(show"Player 3 combination: ${comb3}")
     println(show"Player 4 combination: ${comb4}")
     println(show"Player 5 combination: ${comb5}")
     println(show"Player 6 combination: ${comb6}")
+    println(show"Player 7 combination: ${comb7}")
     val orderedCombinations = List(
       comb1,
       comb2,
       comb3,
       comb4,
       comb5,
-      comb6
+      comb6,
+      comb7
     ).sorted(Ordering[Combination].reverse)
     println("Combinations (descending order):")
     println(orderedCombinations.map(comb => show"\t${comb}").mkString("\n"))
